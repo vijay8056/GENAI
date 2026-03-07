@@ -1,0 +1,7 @@
+streamlit
+SpeechRecognition
+PyAudio
+openai
+google-generativeai
+python-dotenv
+markdown
