@@ -33,9 +33,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f EchoNoteAI/requirements.txt ]; then pip install -r EchoNoteAI/requirements.txt; fi
-        # NoteReaderAI requires pywin32 which is Windows-only, skipping on Ubuntu runner
+        # NoteReaderAI and OmniNoteAI require pywin32 (Windows-only), skipping on Ubuntu runner
         # if [ -f NoteReaderAI/requirements.txt ]; then pip install -r NoteReaderAI/requirements.txt; fi
-        if [ -f OmniNoteAI/requirements.txt ]; then pip install -r OmniNoteAI/requirements.txt; fi
+        # if [ -f OmniNoteAI/requirements.txt ]; then pip install -r OmniNoteAI/requirements.txt; fi
 
     - name: Run Tests with Coverage (EchoNoteAI)
       run: |
