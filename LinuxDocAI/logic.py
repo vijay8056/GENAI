@@ -7,16 +7,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def process_pdf(file_path):
-    # 1. Load the PDF
-    loader = PyPDFLoader(file_path)
-    pages = loader.load()
+def process_multiple_pdfs(file_paths):
+    all_pages = []
+    
+    # 1. Loop through all PDF files and load their content
+    for file_path in file_paths:
+        if os.path.exists(file_path):
+            loader = PyPDFLoader(file_path)
+            pages = loader.load()
+            all_pages.extend(pages)
 
-    # 2. Split the text into small chunks
+    # 2. Split everything into chunks
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-    chunks = text_splitter.split_documents(pages)
+    chunks = text_splitter.split_documents(all_pages)
 
-    # 3. Use the EXACT model name verified by check_models.py
+    # 3. Create the Vector DB from ALL documents at once
     embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
     
     vector_db = Chroma.from_documents(
